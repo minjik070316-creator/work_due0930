@@ -1,3 +1,5 @@
+import ast
+from pathlib import Path
 from time import perf_counter_ns
 
 
@@ -29,20 +31,7 @@ def merge_sort(values):
 
 
 def main():
-	original = [
-		305, 849, 162, 753, 694, 88, 923, 451, 128, 576,
-		234, 681, 915, 348, 702, 159, 826, 493, 75, 614,
-		938, 267, 580, 143, 872, 329, 650, 901, 416, 82,
-		735, 298, 561, 184, 827, 370, 643, 917, 482, 59,
-		764, 215, 532, 198, 865, 341, 679, 904, 438, 91,
-		720, 253, 589, 167, 814, 395, 628, 971, 402, 36,
-		783, 226, 519, 173, 857, 304, 692, 936, 475, 21,
-		749, 282, 540, 111, 838, 363, 607, 982, 469, 54,
-	]
-
-	print("정렬 전 원본 배열:")
-	print(original)
-
+	original = ast.literal_eval(Path(__file__).with_name("10000random_integer_data").read_text())
 	run_times_ms = []
 	sorted_results = []
 	for run in range(1, 6):
@@ -53,9 +42,6 @@ def main():
 		run_times_ms.append(elapsed_ms)
 		sorted_results.append(values)
 		print(f"{run}회차 정렬 시간: {elapsed_ms:.6f} ms")
-
-	print("정렬 후 결과 배열:")
-	print(sorted_results[-1])
 
 	expected = sorted(original)
 	passed = all(result == expected for result in sorted_results)

@@ -1,0 +1,19 @@
+"""0~9999 범위의 무작위 정수 10000개를 생성한다."""
+
+import random
+
+
+def generate_data():
+	repeated_values = random.sample(range(10000), 2)
+	values = [random.randint(0, 9999) for _ in range(9994)]
+	values.extend(repeated_values * 3)
+	random.shuffle(values)
+	if values == sorted(values):
+		values[0], values[1] = values[1], values[0]
+	return values, repeated_values
+
+
+if __name__ == "__main__":
+	data, repeated_values = generate_data()
+	print(data)
+	print("3회 이상 포함되도록 지정한 숫자:", *repeated_values)
